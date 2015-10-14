@@ -76,7 +76,14 @@ int msm_spm_set_vdd(unsigned int cpu, unsigned int vlevel)
 	info.vlevel = vlevel;
 	info.err = -ENODEV;
 
-	if ((smp_processor_id() != cpu) && cpu_online(cpu)) {
+/* OPPO 2013-09-24 zhenwx Modify begin for fixed the warning */
+#ifndef CONFIG_MACH_OPPO
+	if (cpu_online(cpu)) {
+#else
+	if ((smp_processor_id() != cpu) && cpu_online(cpu)) {	
+#endif
+/* OPPO 2013-09-24 zhenwx Modify end */
+
 		/**
 		 * We do not want to set the voltage of another core from
 		 * this core, as its possible that we may race the vdd change
