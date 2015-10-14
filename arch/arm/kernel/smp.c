@@ -248,7 +248,7 @@ void __cpu_die(unsigned int cpu)
 		pr_err("CPU%u: cpu didn't die\n", cpu);
 		return;
 	}
-	pr_debug("CPU%u: shutdown\n", cpu);
+//	pr_debug("CPU%u: shutdown\n", cpu);
 
 	if (!platform_cpu_kill(cpu))
 		printk("CPU%u: unable to kill\n", cpu);
@@ -332,7 +332,7 @@ asmlinkage void __cpuinit secondary_start_kernel(void)
 	current->active_mm = mm;
 	cpumask_set_cpu(cpu, mm_cpumask(mm));
 
-	pr_debug("CPU%u: Booted secondary processor\n", cpu);
+//	pr_debug("CPU%u: Booted secondary processor\n", cpu);
 
 	cpu_init();
 	preempt_disable();
