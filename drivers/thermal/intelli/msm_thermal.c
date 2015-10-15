@@ -67,9 +67,15 @@ static uint32_t hist_index = 0;
 module_param_named(poll_ms, msm_thermal_info.poll_ms, uint, 0664);
 module_param_named(limit_temp_degC, msm_thermal_info.limit_temp_degC,
 			int, 0664);
+module_param_named(temp_hysteresis_degC,
+			msm_thermal_info.temp_hysteresis_degC,
+			int, 0664);
 module_param_named(freq_control_mask, msm_thermal_info.freq_control_mask,
 			uint, 0664);
 module_param_named(core_limit_temp_degC, msm_thermal_info.core_limit_temp_degC,
+			int, 0664);
+module_param_named(core_temp_hysteresis_degC,
+			msm_thermal_info.core_temp_hysteresis_degC,
 			int, 0664);
 module_param_named(core_control_mask, msm_thermal_info.core_control_mask,
 			uint, 0664);
