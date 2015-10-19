@@ -2973,10 +2973,12 @@ static int addrconf_ifdown(struct net_device *dev, int how)
 	write_unlock_bh(&idev->lock);
 
 	/* Step 5: Discard multicast list */
-	if (how)
+	if (how) {
+		ipv6_ac_destroy_dev(idev);
 		ipv6_mc_destroy_dev(idev);
-	else
+	} else {
 		ipv6_mc_down(idev);
+	}
 
 	idev->tstamp = jiffies;
 
