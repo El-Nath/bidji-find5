@@ -369,6 +369,11 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 			continue;
 #endif
 		}
+		if (fatal_signal_pending(p)) {
+			lowmem_print(2, "skip slow dying process %d\n", p->pid);
+			task_unlock(p);
+			continue;
+		}
 		tasksize = get_mm_rss(p->mm);
 		task_unlock(p);
 		if (tasksize <= 0)
@@ -541,8 +546,8 @@ void add_2_adj_tree(struct task_struct *task)
 	struct task_struct *task_entry;
 	s64 key = task->signal->oom_score_adj;
 	/*
- * 	 * Find the right place in the rbtree:
- * 	 	 */
+	 * Find the right place in the rbtree:
+	 */
 	spin_lock(&lmk_lock);
 	while (*link) {
 		parent = *link;
